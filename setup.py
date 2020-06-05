@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ftx", # Replace with your own username
-    version="0.0.dev002",
+    version="0.0.dev003",
     author="VvWkQkTKJ",
     author_email="VvWkQkTKJ@protonmail.ch",
     description="ftx client forked from https://github.com/ftexchange/ftx",
@@ -17,6 +17,9 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+    ],
+    install_requires=[
+        'dateparser', 'requests',
     ],
     python_requires='>=3.7',
 )
