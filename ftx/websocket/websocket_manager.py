@@ -2,7 +2,7 @@ import json
 import time
 from threading import Thread, Lock
 
-from websocket import WebSocketApp
+from ftx.websocket import WebSocketApp
 
 
 class WebsocketManager:

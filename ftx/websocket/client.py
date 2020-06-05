@@ -7,7 +7,7 @@ from itertools import zip_longest
 from typing import DefaultDict, Deque, List, Dict, Tuple, Optional
 from gevent.event import Event
 
-from websocket.websocket_manager import WebsocketManager
+from ftx.websocket.websocket_manager import WebsocketManager
 
 
 class FtxWebsocketClient(WebsocketManager):
