@@ -1,0 +1,14 @@
+README.md
+setup.py
+fix/__init__.py
+fix/client.py
+ftx.egg-info/PKG-INFO
+ftx.egg-info/SOURCES.txt
+ftx.egg-info/dependency_links.txt
+ftx.egg-info/top_level.txt
+rest/__init__.py
+rest/client.py
+rest/otc_client.py
+websocket/__init__.py
+websocket/client.py
+websocket/websocket_manager.py
