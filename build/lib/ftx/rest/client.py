@@ -59,6 +59,12 @@ class FtxClient:
     def list_futures(self) -> List[dict]:
         return self._get('futures')
 
+    def get_future(self, market: str) -> dict:
+        return self._get(f'futures/{market}')
+
+    def get_future_stats(self, market: str) -> dict:
+        return self._get(f'futures/{market}/stats')
+
     def list_markets(self) -> List[dict]:
         return self._get('markets')
 
