@@ -2,11 +2,10 @@ import json
 import time
 from threading import Thread, Lock
 
-#from websocket import WebSocketApp
 import websocket
 
 
-class WebsocketManager:
+class FtxWebsocketManager:
     _CONNECT_TIMEOUT_S = 5
 
     def __init__(self):

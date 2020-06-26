@@ -23,7 +23,6 @@ from simplefix.message import fix_val
 logger = logging.getLogger(__name__)
 
 
-
 class FixConnection:
     def __init__(self, sock: socket, sender_id: str, target_id: Optional[str] = None) -> None:
         self._sock = sock
@@ -236,7 +235,6 @@ class FixConnection:
             self.close()
 
 
-
 class FixClient:
     """FIX client to use for testing."""
 
@@ -362,7 +360,6 @@ class FixClient:
         if client_order_id is not None:
             req[simplefix.TAG_CLORDID] = client_order_id
         self.send(req)
-
 
 # To start up:
 # secret = ''

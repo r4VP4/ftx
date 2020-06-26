@@ -7,10 +7,10 @@ from itertools import zip_longest
 from typing import DefaultDict, Deque, List, Dict, Tuple, Optional
 from gevent.event import Event
 
-from ftx.websocket.websocket_manager import WebsocketManager
+from ftx.ftxwebsocket.websocket_manager import FtxWebsocketManager
 
 
-class FtxWebsocketClient(WebsocketManager):
+class FtxWebsocketClient(FtxWebsocketManager):
     _ENDPOINT = 'wss://ftx.com/ws/'
 
     def __init__(self) -> None:
