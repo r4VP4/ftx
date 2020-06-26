@@ -2,7 +2,8 @@ import json
 import time
 from threading import Thread, Lock
 
-import websocket
+#import websocket
+from websocket import WebSocketApp
 
 
 class FtxWebsocketManager:
@@ -28,7 +29,7 @@ class FtxWebsocketManager:
     def _connect(self):
         assert not self.ws, "ws should be closed before attempting to connect"
 
-        self.ws = websocket.WebSocketApp(
+        self.ws = WebSocketApp(
             self._get_url(),
             on_message=self._wrap_callback(self._on_message),
             on_close=self._wrap_callback(self._on_close),
