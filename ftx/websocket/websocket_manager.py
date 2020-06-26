@@ -2,7 +2,8 @@ import json
 import time
 from threading import Thread, Lock
 
-from websocket import WebSocketApp
+#from websocket import WebSocketApp
+import websocket
 
 
 class WebsocketManager:
@@ -28,7 +29,7 @@ class WebsocketManager:
     def _connect(self):
         assert not self.ws, "ws should be closed before attempting to connect"
 
-        self.ws = WebSocketApp(
+        self.ws = websocket.WebSocketApp(
             self._get_url(),
             on_message=self._wrap_callback(self._on_message),
             on_close=self._wrap_callback(self._on_close),
