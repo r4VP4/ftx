@@ -10,6 +10,7 @@ import dateparser
 
 class FtxClient:
     _ENDPOINT = 'https://ftx.com/api/'
+    _TIMEOUT = 10 # seconds
 
     def __init__(self, api_key=None, api_secret=None, subaccount_name=None) -> None:
         self._session = Session()
@@ -29,7 +30,8 @@ class FtxClient:
     def _request(self, method: str, path: str, **kwargs) -> Any:
         request = Request(method, self._ENDPOINT + path, **kwargs)
         self._sign_request(request)
-        response = self._session.send(request.prepare())
+        # https://requests.readthedocs.io/en/master/user/advanced/#prepared-requests
+        response = self._session.send(request.prepare(), timeout=self._TIMEOUT)
         return self._process_response(response)
 
     def _sign_request(self, request: Request) -> None:

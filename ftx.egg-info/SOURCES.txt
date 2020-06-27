@@ -8,9 +8,9 @@ ftx.egg-info/requires.txt
 ftx.egg-info/top_level.txt
 ftx/fix/__init__.py
 ftx/fix/client.py
+ftx/ftxwebsocket/__init__.py
+ftx/ftxwebsocket/client.py
+ftx/ftxwebsocket/websocket_manager.py
 ftx/rest/__init__.py
 ftx/rest/client.py
 ftx/rest/otc_client.py
-ftx/websocket/__init__.py
-ftx/websocket/client.py
-ftx/websocket/websocket_manager.py
