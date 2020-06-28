@@ -79,6 +79,9 @@ class FtxClient:
     def get_account_info(self) -> dict:
         return self._get(f'account')
 
+    def get_subaccounts(self) -> List[dict]:
+        return self._get(f'subaccounts')
+
     def get_open_orders(self, market: str = None) -> List[dict]:
         return self._get(f'orders', {'market': market})
     
