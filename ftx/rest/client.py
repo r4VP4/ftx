@@ -156,8 +156,8 @@ class FtxClient:
                                         'limitOrdersOnly': limit_orders,
                                         })
 
-    def get_fills(self) -> List[dict]:
-        return self._get(f'fills')
+    def get_fills(self, market: str = None) -> List[dict]:
+        return self._get(f'fills', {'market': market})
 
     def get_balances(self) -> List[dict]:
         return self._get('wallet/balances')
@@ -190,3 +190,5 @@ class FtxClient:
             if len(response) < limit:
                 break
         return results
+
+
