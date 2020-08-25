@@ -164,6 +164,7 @@ class FtxWebsocketClient(FtxWebsocketManager):
         self._orders.update({data['id']: data})
 
     def _on_message(self, ws, raw_message: str) -> None:
+        self.last_msg_timestmp = time.time()
         message = json.loads(raw_message)
         message_type = message['type']
         if message_type in {'subscribed', 'unsubscribed'}:
