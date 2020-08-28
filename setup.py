@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ftx",
-    version="0.0.012",
+    version="0.0.013",
     author="VvWkQkTKJ",
     author_email="VvWkQkTKJ@protonmail.ch",
     description="ftx client forked from https://github.com/ftexchange/ftx",
