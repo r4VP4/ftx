@@ -92,7 +92,7 @@ class FixConnection:
         except ValueError:
             self.reject_message(
                 msg, reason='Invalid encoding',
-                error_code=simplefix.SESSIONREJECTREASON_INCOORECT_DATA_FORMAT_FOR_VALUE,
+                error_code=simplefix.SESSIONREJECTREASON_INCORRECT_DATA_FORMAT_FOR_VALUE,
             )
             return False
 

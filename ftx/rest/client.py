@@ -4,13 +4,13 @@ from typing import Optional, Dict, Any, List
 
 from requests import Request, Session, Response
 import hmac
-#from ciso8601 import parse_datetime
+# from ciso8601 import parse_datetime
 import dateparser
 
 
 class FtxClient:
     _ENDPOINT = 'https://ftx.com/api/'
-    _TIMEOUT = 10 # seconds
+    _TIMEOUT = 10  # seconds
 
     def __init__(self, api_key=None, api_secret=None, subaccount_name=None) -> None:
         self._session = Session()
@@ -84,17 +84,24 @@ class FtxClient:
 
     def get_open_orders(self, market: str = None) -> List[dict]:
         return self._get(f'orders', {'market': market})
-    
-    def get_order_history(self, market: str = None, side: str = None, order_type: str = None, start_time: float = None, end_time: float = None) -> List[dict]:
-        return self._get(f'orders/history', {'market': market, 'side': side, 'orderType': order_type, 'start_time': start_time, 'end_time': end_time})
-        
-    def get_conditional_order_history(self, market: str = None, side: str = None, type: str = None, order_type: str = None, start_time: float = None, end_time: float = None) -> List[dict]:
-        return self._get(f'conditional_orders/history', {'market': market, 'side': side, 'type': type, 'orderType': order_type, 'start_time': start_time, 'end_time': end_time})
+
+    def get_order_history(self, market: str = None, side: str = None, order_type: str = None, start_time: float = None,
+                          end_time: float = None) -> List[dict]:
+        return self._get(f'orders/history',
+                         {'market': market, 'side': side, 'orderType': order_type, 'start_time': start_time,
+                          'end_time': end_time})
+
+    def get_conditional_order_history(self, market: str = None, side: str = None, type: str = None,
+                                      order_type: str = None, start_time: float = None,
+                                      end_time: float = None) -> List[dict]:
+        return self._get(f'conditional_orders/history',
+                         {'market': market, 'side': side, 'type': type, 'orderType': order_type,
+                          'start_time': start_time, 'end_time': end_time})
 
     def modify_order(
-        self, existing_order_id: Optional[str] = None,
-        existing_client_order_id: Optional[str] = None, price: Optional[float] = None,
-        size: Optional[float] = None, client_order_id: Optional[str] = None,
+            self, existing_order_id: Optional[str] = None,
+            existing_client_order_id: Optional[str] = None, price: Optional[float] = None,
+            size: Optional[float] = None, client_order_id: Optional[str] = None,
     ) -> dict:
         assert (existing_order_id is None) ^ (existing_client_order_id is None), \
             'Must supply exactly one ID for the order to modify'
@@ -104,7 +111,7 @@ class FtxClient:
         return self._post(path, {
             **({'size': size} if size is not None else {}),
             **({'price': price} if price is not None else {}),
-            ** ({'clientId': client_order_id} if client_order_id is not None else {}),
+            **({'clientId': client_order_id} if client_order_id is not None else {}),
         })
 
     def get_conditional_orders(self, market: str = None) -> List[dict]:
@@ -125,9 +132,9 @@ class FtxClient:
                                      })
 
     def place_conditional_order(
-        self, market: str, side: str, size: float, type: str = 'stop',
-        limit_price: float = None, reduce_only: bool = False, cancel: bool = True,
-        trigger_price: float = None, trail_value: float = None
+            self, market: str, side: str, size: float, type: str = 'stop',
+            limit_price: float = None, reduce_only: bool = False, cancel: bool = True,
+            trigger_price: float = None, trail_value: float = None
     ) -> dict:
         """
         To send a Stop Market order, set type='stop' and supply a trigger_price
@@ -158,6 +165,12 @@ class FtxClient:
 
     def get_fills(self, market: str = None) -> List[dict]:
         return self._get(f'fills', {'market': market})
+
+    def get_funding_payments(self, start_time: float = None, end_time: float = None, future: str = None) -> List[dict]:
+        return self._get('funding_payments', {'start_time': start_time,
+                                              'end_time': end_time,
+                                              'future': future,
+                                              })
 
     def get_balances(self) -> List[dict]:
         return self._get('wallet/balances')
@@ -190,5 +203,4 @@ class FtxClient:
             if len(response) < limit:
                 break
         return results
-
 
