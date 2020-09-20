@@ -29,6 +29,7 @@ class FtxWebsocketClient(FtxWebsocketManager):
         self._subscriptions: List[Dict] = []
         self._orders: DefaultDict[int, Dict] = defaultdict(dict)
         self._tickers: DefaultDict[str, Dict] = defaultdict(dict)
+        self._markets: DefaultDict[str, Dict] = defaultdict(dict)
         self._orderbook_timestamps: DefaultDict[str, float] = defaultdict(float)
         self._orderbook_update_events.clear()
         self._orderbooks: DefaultDict[str, Dict[str, DefaultDict[float, float]]] = defaultdict(
@@ -117,6 +118,12 @@ class FtxWebsocketClient(FtxWebsocketManager):
             self._subscribe(subscription)
         return self._tickers[market]
 
+    def get_markets(self, market: str) -> Dict:
+        subscription = {'channel': 'markets'}
+        if subscription not in self._subscriptions:
+            self._subscribe(subscription)
+        return self._markets[market]
+
     def _handle_orderbook_message(self, message: Dict) -> None:
         market = message['market']
         subscription = {'channel': 'orderbook', 'market': market}
@@ -156,6 +163,12 @@ class FtxWebsocketClient(FtxWebsocketManager):
     def _handle_ticker_message(self, message: Dict) -> None:
         self._tickers[message['market']] = message['data']
 
+    def _handle_markets_message(self, message: Dict) -> None:
+        data = message['data']['data']
+        for key, value in data.items():
+            self._markets[key] = value
+
+
     def _handle_fills_message(self, message: Dict) -> None:
         self._fills.append(message['data'])
 
@@ -182,7 +195,10 @@ class FtxWebsocketClient(FtxWebsocketManager):
             self._handle_trades_message(message)
         elif channel == 'ticker':
             self._handle_ticker_message(message)
+        elif channel == 'markets':
+            self._handle_markets_message(message)
         elif channel == 'fills':
             self._handle_fills_message(message)
         elif channel == 'orders':
             self._handle_orders_message(message)
+
