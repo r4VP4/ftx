@@ -13,12 +13,12 @@ from ftx.ftxwebsocket.websocket_manager import FtxWebsocketManager
 class FtxWebsocketClient(FtxWebsocketManager):
     _ENDPOINT = 'wss://ftx.com/ws/'
 
-    def __init__(self) -> None:
+    def __init__(self, api_key: str = '', api_secret: str = '') -> None:
         super().__init__()
         self._trades: DefaultDict[str, Deque] = defaultdict(lambda: deque([], maxlen=10000))
         self._fills: Deque = deque([], maxlen=10000)
-        self._api_key = ''  # TODO: Place your API key here
-        self._api_secret = ''  # TODO: Place your API secret here
+        self._api_key = api_key
+        self._api_secret = api_secret
         self._orderbook_update_events: DefaultDict[str, Event] = defaultdict(Event)
         self._reset_data()
 
@@ -168,7 +168,6 @@ class FtxWebsocketClient(FtxWebsocketManager):
         for key, value in data.items():
             self._markets[key] = value
 
-
     def _handle_fills_message(self, message: Dict) -> None:
         self._fills.append(message['data'])
 
@@ -201,4 +200,3 @@ class FtxWebsocketClient(FtxWebsocketManager):
             self._handle_fills_message(message)
         elif channel == 'orders':
             self._handle_orders_message(message)
-
