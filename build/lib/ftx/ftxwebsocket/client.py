@@ -37,6 +37,7 @@ class FtxWebsocketClient(FtxWebsocketManager):
         self._orderbook_timestamps.clear()
         self._logged_in = False
         self._last_received_orderbook_data_at: float = 0.0
+        self.last_msg_timestmp:float = time.time()
 
     def _reset_orderbook(self, market: str) -> None:
         if market in self._orderbooks:
